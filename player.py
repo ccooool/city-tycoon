@@ -5,6 +5,7 @@ class Player():
 		self.buildings = []
 		self.money = 8000
 		self.cost_of_building = 2000
+		self.ready = False
 
 	def buy_new_building(self, building_name):
 		if self.money >= self.cost_of_building:
@@ -16,4 +17,12 @@ class Player():
 
 	def get_money(self):
 		return self.money
+
+	def set_ready(self, ready_status):
+		self.ready = ready_status
+
+	def is_ready(self):
+		return self.ready 
+
+
 
