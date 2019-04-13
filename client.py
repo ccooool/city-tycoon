@@ -27,11 +27,12 @@ class Client(object):
 
 	def queue_for_game(self, game):
 		print("Hi! Welcome to the game! Enter a command!")
-		self.menu()
 		while True:
 			# check for the player's input
+			self.lobby_menu()
+
 			response = raw_input("Type a command: ").strip()
-			self.menu()
+
 
 			# now check the command prompt
 			if (response == "start da game" or response == "s"):
@@ -41,14 +42,7 @@ class Client(object):
 				print(game.get_account_value(self.name))
 			elif (response == "who else is playing?" or response == "p"):
 				print(game.expose_players())
-			elif (response == "buy a building" or response == "b"):
-				building_name = raw_input("What kind of building do you want: ").strip()
-				building_success = game.buy_a_building(self.name, building_name)
-				if (building_success):
-					print("success! you bought a building")
-					print(building_success)
-				else:
-					print("not enof money")
+
 			else:
 				print("command not found")
 		self.wait_for_start(game)
@@ -64,16 +58,57 @@ class Client(object):
 				break	
 
 	def start_game(self, game):
-		print("started the game successfully!!!!")
+		print("buy either 5 buildings or get to 10 million dollars first in order to win the game!!")
+		while (True):
+
+			game.reset_all_players_ready()
+
+			for i in range(game.total_turns()):
+				print("player " + game.get_player(i) + " is taking their turn")
+				# wait for each player to finish their turn 
+				if game.get_player(i) != self.name:
+					print("waiting for " + game.get_player(i) + " to finish their turn")
+					while (True):
+						if game.check_player_ready(i):
+							break
+
+				else: 
+					print("it's your turn! make a command")
+					while (True):
+						self.game_menu()
+						response = raw_input("Type a command for this turn: ").strip()
+						if response == "e" or response == "end turn":
+							game.signal_ready(self.name)
+
 			
 
 
-	def menu(self):
-		print("Here is the menu:")
+
+
+			# if (response == "buy a building" or response == "b"):
+			# 	building_name = raw_input("What kind of building do you want: ").strip()
+			# 	building_success = game.buy_a_building(self.name, building_name)
+			# 	if (building_success):
+			# 		print("success! you bought a building")
+			# 		print(building_success)
+			# 	else:
+			# 		print("not enof money")
+
+			
+
+
+	def lobby_menu(self):
+		print("Here is the lobby menu:")
 		print("s | start da game")
 		print("m | how much money do i have?")
 		print("p | who else is playing?")
 		print("b | buy a building")
+
+	def game_menu(self):
+		print("Here is the game menu:")
+		print("e | end turn")
+
+
 
 
 
