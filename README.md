@@ -5,7 +5,7 @@ this is a game where you can build a city
 # how to start the game
 
 ## step 1: start the name server
-python -m Pyro4.naming
+
 
 ## step 2: start the server
 python server.py

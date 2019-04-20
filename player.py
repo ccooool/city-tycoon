@@ -1,10 +1,11 @@
 from building import Building
 
 class Player():
-	def __init__(self, turn_num):
+	def __init__(self, turn_num, name):
+		self.name = name
 		self.buildings = []
-		self.money = 8000
-		self.cost_of_building = 2000
+		self.money = 800000
+		self.cost_of_building = 200000
 		self.ready = False
 		self.turn_num = turn_num
 
@@ -19,6 +20,12 @@ class Player():
 	def get_money(self):
 		return self.money
 
+	def get_name(self):
+		return self.name
+
+	def get_num_buildings(self):
+		return len(self.buildings)
+
 	def set_ready(self, ready_status):
 		self.ready = ready_status
 
@@ -27,6 +34,13 @@ class Player():
 
 	def get_turn_num(self):
 		return self.turn_num
+
+ 	def collect_money(self):
+ 		for building in self.buildings:
+ 			self.money += building.get_revenue()
+ 		return self.money
+
+ 			
 
 
 

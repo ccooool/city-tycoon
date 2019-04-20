@@ -12,3 +12,6 @@ class Building:
 	def building_details(self):
 		return ("the building_name is " + self.building_name + 
 			"\n The amount of revenue it produces per turn is " + str(self.revenue))
+
+	def get_revenue(self):
+		return self.revenue
