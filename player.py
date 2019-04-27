@@ -40,7 +40,20 @@ class Player():
  			self.money += building.get_revenue()
  		return self.money
 
- 			
+ 	def get_building_values(self):
+ 		buildings_list = []
+ 		for building in self.buildings:
+ 			buildings_list.append(("building name: " + building.get_name(), "building value: " + str(building.get_value()), "building revenue: " + str(building.get_revenue()) ))
+ 		return buildings_list
+
+ 	def sell_building(self, building_name):
+ 		for index, building in enumerate(self.buildings):
+ 			if (building.get_name() == building_name):
+ 				self.money += building.get_value()
+ 				self.buildings.pop(index)
+ 				return self.money
+ 		return -1
+
 
 
 

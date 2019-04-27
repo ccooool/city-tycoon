@@ -1,6 +1,7 @@
 from __future__ import print_function
 import sys
 import time
+from pprint import pprint
 
 class Client(object):
 
@@ -96,6 +97,22 @@ class Client(object):
 				else:
 					print("not enof money")
 				break
+			elif (response == "view buildings" or response == "v"):
+				print("Here are the buildings you own and their values:")
+				pprint(game.get_building_values(self.name))
+			elif (response == "sell a building" or response == "s"):
+				print("Here are the buildings you own and their values:")
+				pprint(game.get_building_values(self.name))
+				building_name = raw_input("Which building do you want to sell: ").strip()
+				sell_success = game.sell_building(self.name, building_name)
+				if (sell_success == -1):
+					print("Building not found, unable to sell!")
+				else:
+					print("Sold " + building_name + " and now have " + str(sell_success) + " dollars")
+			elif (response == "view money" or response == "m"):
+				print("You have " + str(game.view_money(self.name))+ " dollars")
+
+
 		money_collected = game.collect_money(self.name)
 		print("At this point you have " + str(money_collected) + " dollars after collecting from your buildings")
 		game.signal_ready(self.name)
@@ -115,7 +132,9 @@ class Client(object):
 		print("Here is the game menu:")
 		print("e | end turn")
 		print("b | buy a building")
-
+		print("s | sell a building")
+		print("v | view buildings")
+		print("m | view money")
 
 
 

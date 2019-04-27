@@ -46,9 +46,12 @@ class CityTycoonServer(object):
 	@Pyro4.expose
 	def players_ready(self):
 		all_ready = True
+		count = 0
 		for player_name in self.players.keys():
+			count += 1
 			if not self.players[player_name].is_ready():
 				all_ready = False
+		if (count == 1): return False
 		return all_ready
 
 	@Pyro4.expose
@@ -85,6 +88,21 @@ class CityTycoonServer(object):
 				print(player.get_num_buildings())
 				return player_name
 		return None
+
+	@Pyro4.expose
+	def get_building_values(self, name):
+		player = self.players[name]	
+		return player.get_building_values()
+
+	@Pyro4.expose
+	def sell_building(self, player_name, building_name):
+		return (self.players[player_name]).sell_building(building_name)
+
+	@Pyro4.expose
+	def view_money(self, player_name):
+		return (self.players[player_name]).get_money()
+
+
 
 	
 
